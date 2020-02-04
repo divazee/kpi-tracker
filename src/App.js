@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import MyTable from './components/MyTable'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="container">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -18,7 +19,10 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+
+      <MyTable />
+      
     </div>
   );
 }
