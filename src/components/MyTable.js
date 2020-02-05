@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import KPIForm from './KPIForm';
 import axios from 'axios';
-import Moment from 'react-moment'
+import Moment from 'react-moment';
+import bin from "../images/bin.png";
+import update from '../images/update.png'
+import UpdateForm from './UpdateForm';
 
     class MyTable extends Component {
         state = {
@@ -32,7 +35,6 @@ import Moment from 'react-moment'
             }
             var mean = sum/this.state.kpis.length
             // console.log("state.kpis", this.state.kpis)
-            // console.log("sum", sum)
             console.log("mean", mean)
         }
 
@@ -94,8 +96,8 @@ import Moment from 'react-moment'
                         <Moment format="D MMM YYYY">{start_date}</Moment>
                     </td>
                     <td><Moment format="D MMM YYYY">{supposed_end_date}</Moment></td>
-                    <td>
-                        <select 
+                    <td>{stage}
+                        {/* <select 
                             className="form-control badge"
                             name="stage"
                             value={stage}
@@ -106,23 +108,23 @@ import Moment from 'react-moment'
                             <option value="In Production">In Production</option>
                             <option value="Rounding up">Rounding up</option>
                             <option value="Complete">Complete</option>
-                        </select>                        
+                        </select>                         */}
                     </td>
-                    <td>
-                        <select
+                    <td>{status}
+                        {/* <select
                             className="form-control badge mx-2"
                             name="status"
                             value={status}
                             onChange={this.handleChange}
                             >
-                                {/* <option>-- Not Started --</option> */}
                                 <option value="Pending">Pending</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="Done">Done</option>
-                        </select>
+                        </select> */}
                     </td>
-                    <td>
-                        <select 
+                    <td>{percent}
+                        
+                        {/* <select 
                             className="form-control badge mx-2"
                             name="percent"
                             value={percent}
@@ -133,7 +135,15 @@ import Moment from 'react-moment'
                             <option value="50">50%</option>
                             <option value="75">75%</option>
                             <option value="100">100%</option>
-                        </select>            
+                        </select>             */}
+                    </td>
+                    <td>
+                        <a className="" data-toggle="modal" href="#exampleModal">
+                            <img src={update} alt="" width="20px" />
+                        </a>                        
+                        <UpdateForm kpis={this.state.kpis} />
+                        
+                        <img src={bin} alt="" width="20px" />
                     </td>
                     <td>
                         <input 
@@ -176,6 +186,7 @@ import Moment from 'react-moment'
                                 <th>Stage</th>
                                 <th>Status</th>
                                 <th>Percent</th>
+                                <th>Action</th>
                                 <th>End Date</th>                                
                             </tr>
                         </thead>
