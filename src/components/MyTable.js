@@ -12,6 +12,7 @@ import Moment from 'react-moment'
 
         componentDidMount() {
         this.getkpis();
+        this.getPercent();
         }
 
         getkpis = async (e) => {
@@ -24,15 +25,40 @@ import Moment from 'react-moment'
             }
         }
 
-        // getPercent = () => {
-        //     for(var i=0; i < this.state.kpis)
+        getPercent = () => {
+            var sum = 0;
+            for(var i=0; i < this.state.kpis.length; i++){
+                sum += this.state.kpis[i].percent
+            }
+            var mean = sum/this.state.kpis.length
+            // console.log("state.kpis", this.state.kpis)
+            // console.log("sum", sum)
+            console.log("mean", mean)
+        }
 
-        // }
-
-        handleChange = (e) => {
+        handleChange = async (e) => {
             const {name, value} = e.target
             this.setState({ [name]: value })
-            console.log("object", this.state.kpis.task)
+
+            // const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state.kpis;
+            const { status } = this.state.kpis;
+    
+            // API call
+            const data = { status };
+
+            for(var i=0; i < this.state.kpis.length; i++){
+                // sum += this.state.kpis[i].percent
+                // console.log('kpis id', this.state.kpis[i]._id)
+                console.log('kpis id', e.target.name)
+            }
+
+            // console.log("data", data);
+            // console.log("handleChange name -", name)
+            // console.log("handleChange value -", value)
+            try {
+               let result = await axios({ method : 'PUT', url: `http://localhost:5000/kpis/${name}`, data });
+                console.log("data", result);
+            } catch(e) { console.log(e) }
         }
 
         renderTableData() {
@@ -97,6 +123,15 @@ import Moment from 'react-moment'
                 )
             })
         }
+
+        // componentDidUpdate(prevProps, prevState) {
+        //     if(prevState.this.state.kpis.status !== this.state.kpis.status) {
+        //         // const newColor = randomcolor()
+        //         // this.setState({color: newColor})
+        //         console.log(this.state.kpis.status)
+        //         console.log(prevState.this.state.kpis.status)
+        //     }
+        // }
         
         render() {
             return ( 
@@ -108,6 +143,7 @@ import Moment from 'react-moment'
                             handleChange = { this.handleChange }
                             averagePercent={this.state.kpis.length}
                         />
+                        <button onClick={this.getPercent}>click</button>
                     </div>
                     <table className="table table-hover table-bordered mt-3">
                         <thead>

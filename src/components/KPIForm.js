@@ -5,7 +5,7 @@ class KPIForm extends Component {
     state = {}
 
     handleSubmit = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state;
     
         // API call
@@ -23,14 +23,6 @@ class KPIForm extends Component {
 
     render(){
         const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state;
-
-        // console.log(percent)
-        // percent.map(pers => console.log(pers))
-
-        // percent.reduce(myFunction)
-        // function myFunction(total, value, index, array) {
-        //     return total + value;
-        // }
 
         return ( 
             <div>
@@ -133,7 +125,7 @@ class KPIForm extends Component {
                                                 <option value="Rounding up">Rounding up</option>
                                                 <option value="Complete">Complete</option>
                                             </select>
-                                            <select 
+                                            {/* <select 
                                                 className="form-control mx-2"
                                                 name="status"
                                                 value={status}
@@ -143,7 +135,7 @@ class KPIForm extends Component {
                                                     <option value="Pending">Pending</option>
                                                     <option value="In Progress">In Progress</option>
                                                     <option value="Done">Done</option>
-                                            </select>
+                                            </select> */}
                                     </div>
                                     <div className="text-right">
                                         <button type="submit" className="btn btn-primary">Submit</button>
