@@ -40,25 +40,46 @@ import Moment from 'react-moment'
             const {name, value} = e.target
             this.setState({ [name]: value })
 
-            // const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state.kpis;
-            const { status } = this.state.kpis;
+        //     // const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state.kpis;
+        //     const { status } = this.state.kpis;
     
-            // API call
-            const data = { status };
+        //     // API call
+        //     const data = { status };
 
-            for(var i=0; i < this.state.kpis.length; i++){
-                // sum += this.state.kpis[i].percent
-                // console.log('kpis id', this.state.kpis[i]._id)
-                console.log('kpis id', e.target.name)
-            }
+        //     for(var i=0; i < this.state.kpis.length; i++){
+        //         // sum += this.state.kpis[i].percent
+        //         // console.log('kpis id', this.state.kpis[i]._id)
+        //         console.log('kpis id', e.target.name)
+        //     }
 
-            // console.log("data", data);
-            // console.log("handleChange name -", name)
-            // console.log("handleChange value -", value)
-            try {
-               let result = await axios({ method : 'PUT', url: `http://localhost:5000/kpis/${name}`, data });
-                console.log("data", result);
-            } catch(e) { console.log(e) }
+        //     // console.log("data", data);
+        //     // console.log("handleChange name -", name)
+        //     // console.log("handleChange value -", value)
+        //     try {
+        //        let result = await axios({ method : 'PUT', url: `http://localhost:5000/kpis/${name}`, data });
+        //         console.log("data", result);
+        //     } catch(e) { console.log(e) }
+
+
+        // COPIED
+            // const { kpis } = this.state;
+            // const kpi = kpis[e];
+            
+            // const newStatus = this.state.kpis.map((kpi, i) => {
+            //     if (e === i + 1) {
+            //         return {
+            //             ...kpi
+            //         }
+            //     }
+            //     return kpi; 
+            // })
+            // axios.put(`http://localhost:5000/kpis/${kpi.staidtus}`, {...kpi}) 
+            // .then(() => {
+            //         // console.log(res)
+            //         this.setState({ kpis: newStatus})
+            //     }
+            // ) 
+            
         }
 
         renderTableData() {
