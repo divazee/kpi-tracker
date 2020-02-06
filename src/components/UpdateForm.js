@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Moment from 'react-moment';
 
-const UpdateForm = (props) => {
-    const { task, start_date, supposed_end_date, stage, status, percent, end_date } = props.kpis;
+class UpdateForm extends Component {
+  state = {  }
+  render() { 
+    const { task, start_date, supposed_end_date, stage, status, percent, end_date, _id } = this.props.kpi;
+    // console.log("from update",_id);
+    console.log("get kpi from update", this.props.kpi)
     return (        
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update KPI</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Update KPI</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div class="modal-body">
-                <form>
+              <div className="modal-body">cvbn: {start_date}mm
+              {<Moment format="D MMM YYYY">{start_date}</Moment>}
+                <form onSubmit={() => console.log("on submit")}>
+                {/* <form onSubmit={props.updateField}> */}
                                     <div className="form-group">
                                         <input 
                                         type="text"
@@ -31,7 +38,7 @@ const UpdateForm = (props) => {
                                             type="date" 
                                             className="form-control-sm"
                                             name="start_date"
-                                            value={start_date}
+                                            value={<Moment format="D MMM YYYY">{start_date}</Moment>}
                                             // onChange={this.handleChange}
                                             />
                                         </div>
@@ -54,7 +61,7 @@ const UpdateForm = (props) => {
                                                 // onChange={this.handleChange}
                                                 >
                                                 <option value="0">0%</option>
-                                                <option value="25">25%</option>
+                                                 <option value="25">25%</option>
                                                 <option value="50">50%</option>
                                                 <option value="75">75%</option>
                                                 <option value="100">100%</option>
@@ -86,9 +93,14 @@ const UpdateForm = (props) => {
                                                     <option value="Done">Done</option>
                                             </select>
                                     </div>
-                                    <div class="modal-footer mt-2">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" className="btn btn-primary">Save changes</button>
+                                    <div className="modal-footer mt-2">
+                                        {/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button> */}
+                                        <button 
+                                          type="click" 
+                                          className="btn btn-primary" 
+                                          // id={_id}
+                                          // onClick={() => {console.log(this.props.kpis._id)}}
+                                          >Save changes</button>
                                     </div>
                                 </form>
               </div>
@@ -97,5 +109,5 @@ const UpdateForm = (props) => {
         </div>        
      );
 }
- 
+}
 export default UpdateForm;
