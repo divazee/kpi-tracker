@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import Moment from 'react-moment';
 
 class UpdateForm extends Component {
-  state = {  }
+  state = { 
+    task: '',
+    start_date: '',
+    supposed_end_date: '',
+    stage: '',
+    status: '',
+    percent: '',
+    _id: ''
+   }
   render() { 
-    const { task, start_date, supposed_end_date, stage, status, percent, end_date, _id } = this.props.kpi;
+    const { task, start_date, supposed_end_date, stage, status, percent } = this.props.kpi;
     // console.log("from update",_id);
     console.log("get kpi from update", this.props.kpi)
     return (        
