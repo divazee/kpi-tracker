@@ -1,20 +1,54 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Moment from 'react-moment';
 
 class UpdateForm extends Component {
-  state = { 
-    task: '',
-    start_date: '',
-    supposed_end_date: '',
-    stage: '',
-    status: '',
-    percent: '',
-    _id: ''
-   }
-  render() { 
-    const { task, start_date, supposed_end_date, stage, status, percent } = this.props.kpi;
-    // console.log("from update",_id);
-    console.log("get kpi from update", this.props.kpi)
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      _id: '',
+      task: '',
+      start_date: '',
+      supposed_end_date: '',
+      stage: '',
+      status: '',
+      percent: ''
+    }
+  }
+
+  handleChange = (e) => {
+    const {name, value} = e.target
+    this.setState({ [name]: value })    
+  }
+
+  handleSubmit = async (e) => {
+    // e.preventDefault()
+
+    const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state;
+    
+    // API call
+    const data = { task, start_date, supposed_end_date, stage, status, percent, end_date };
+    console.log(data);
+    try {
+                let result = await axios({ method : 'PUT', url: `http://localhost:5000/kpis/${this.props.kpi._id}`, data });
+                // this.setState({ kpi: result.data})
+
+                console.log("id", this.props.kpi._id)
+                console.log("result", result)
+    } catch(e) { console.log(e) }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.kpi._id !== prevProps.kpi._id) {
+      const { task, start_date, supposed_end_date, stage, status, percent } = this.props.kpi
+      this.setState({ task, start_date, supposed_end_date, stage, status, percent });
+    }
+  }
+
+  render() {
+    const { task, start_date, supposed_end_date, stage, status, percent } = this.state
+
     return (        
         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -25,18 +59,17 @@ class UpdateForm extends Component {
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <div className="modal-body">cvbn: {start_date}mm
-              {<Moment format="D MMM YYYY">{start_date}</Moment>}
-                <form onSubmit={() => console.log("on submit")}>
-                {/* <form onSubmit={props.updateField}> */}
+              <div className="modal-body">
+                {/* <form onSubmit={() => console.log("on submit")}> */}
+                <form onSubmit={this.handleSubmit}>
                                     <div className="form-group">
                                         <input 
                                         type="text"
                                         className="form-control" 
-                                        placeholder="Task" 
+                                        // placeholder="Task" 
                                         name="task"              
                                         value={task}
-                                        // onChange={this.handleChange}
+                                        onChange={this.handleChange}
                                          />
                                     </div>
                                     <div  className="d-flex">
@@ -81,7 +114,7 @@ class UpdateForm extends Component {
                                                 className="form-control"
                                                 name="stage"
                                                 value={stage}
-                                                // onChange={this.handleChange}
+                                                onChange={this.handleChange}
                                                 >
                                                 <option>-- Stage --</option>
                                                 <option value="Requirement Gathering">Requirement Gathering</option>

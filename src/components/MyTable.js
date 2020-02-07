@@ -9,7 +9,6 @@ import UpdateForm from './UpdateForm';
     class MyTable extends Component {
         state = {
             kpis : [],
-            // percentages: [],
             oneKPI: {},
             sum: 0
         }
@@ -37,19 +36,11 @@ import UpdateForm from './UpdateForm';
             return mean;
         }
 
-        handleChange = async (e) => {
-            const {name, value} = e.target
-            this.setState({ [name]: value })    
-        }
-
         getId(kpi) {
-            // console.log("kpi1", kpi)
-            // console.log("object1", this.state.oneKPI)
             this.setState({
                 oneKPI: kpi
             })
-            // console.log("object2", this.state.oneKPI.task)
-            // console.log("kpi1", kpi.task)
+            console.log("object", kpi)
 
             // const { task, start_date, supposed_end_date, stage, status, percent, _id, end_date } = kpi;
     
@@ -64,18 +55,12 @@ import UpdateForm from './UpdateForm';
             // } catch(e) { console.log(e) }
         }
 
-        // viewForm = (kpi) => {
-        //     console.log("kpinnn1", kpi)
-
-        // }
-
         renderTableData() {
             return this.state.kpis.map((kpi, i) => {
-               const { task, start_date, supposed_end_date, stage, end_date, status, percent, _id } = kpi
+               const { task, start_date, supposed_end_date, stage, end_date, status, percent } = kpi
                return (
                 <tr key={i}>
                     <td>{i + 1}</td>
-                    <td>{_id}</td>
                     <td>{task}</td>
                     <td>
                         <Moment format="D MMM YYYY">{start_date}</Moment>
@@ -87,15 +72,13 @@ import UpdateForm from './UpdateForm';
                     <td>
                         <button 
                             onClick = {() => this.getId(kpi)}
-                            // onClick={() => this.viewForm(kpi)}
                             className="" data-toggle="modal"
                             href="#exampleModal">
                             <img src={update} alt="" width="20px" />
                         </button>                        
                         <UpdateForm 
-                            // kpi = {this.state.kpis}
                             kpi = {this.state.oneKPI}
-                            
+                            // kpi = {kpi}
                         />
                         
                         <img src={bin} alt="" width="20px" />
@@ -109,24 +92,15 @@ import UpdateForm from './UpdateForm';
                 )
             })
         }
-
-        // componentDidUpdate(prevProps, prevState) {
-        //     if(prevState.this.state.kpis.status !== this.state.kpis.status) {
-        //         // const newColor = randomcolor()
-        //         // this.setState({color: newColor})
-        //         console.log(this.state.kpis.status)
-        //         console.log(prevState.this.state.kpis.status)
-        //     }
-        // }
         
         render() {
+            console.log("onekpi", this.state.oneKPI)
+            // console.log("kpis", this.state.kpis)
             return ( 
                 <div className="">
                     <div>
                         <KPIForm 
                             kpis = {this.state.kpis}
-                            // kpiPercent = { this.state.kpis}
-                            handleChange = { this.handleChange }
                             averagePercent={this.state.kpis.length}
                         />
                         <button onClick={this.getPercent}>click</button>
@@ -134,7 +108,6 @@ import UpdateForm from './UpdateForm';
                     <table className="table table-hover table-bordered mt-3">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>#</th>
                                 <th>Task</th>
                                 <th>Start Date</th>

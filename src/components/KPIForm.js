@@ -23,7 +23,6 @@ class KPIForm extends Component {
 
     render(){
         const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state;
-
         return ( 
             <div>
                 <div className="flex-wrapper">
