@@ -3,8 +3,18 @@ import Moment from 'react-moment';
 
 class UpdateForm extends Component {
   state = {  }
+
+  handleChange = (e) => {
+    const {name, value} = e.target
+    this.setState({ [name]: value })    
+    console.log("names", name)
+    console.log("namev", value)
+    console.log("namev", this.state.task)
+}
+
   render() { 
-    const { task, start_date, supposed_end_date, stage, status, percent, end_date, _id } = this.props.kpi;
+    const { kpi, handleChange } = this.props
+    const { task, start_date, supposed_end_date, stage, status, percent, end_date, _id } = kpi;
     // console.log("from update",_id);
     console.log("get kpi from update", this.props.kpi)
     return (        
@@ -25,10 +35,10 @@ class UpdateForm extends Component {
                                         <input 
                                         type="text"
                                         className="form-control" 
-                                        placeholder="Task" 
+                                        // placeholder="Task" 
                                         name="task"              
                                         value={task}
-                                        // onChange={this.handleChange}
+                                        onChange={this.handleChange}
                                          />
                                     </div>
                                     <div  className="d-flex">
@@ -73,7 +83,7 @@ class UpdateForm extends Component {
                                                 className="form-control"
                                                 name="stage"
                                                 value={stage}
-                                                // onChange={this.handleChange}
+                                                onChange={handleChange}
                                                 >
                                                 <option>-- Stage --</option>
                                                 <option value="Requirement Gathering">Requirement Gathering</option>

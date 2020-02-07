@@ -37,9 +37,11 @@ import UpdateForm from './UpdateForm';
             return mean;
         }
 
-        handleChange = async (e) => {
+        handleChange = (e) => {
             const {name, value} = e.target
             this.setState({ [name]: value })    
+            console.log("name", name)
+            console.log("name", value)
         }
 
         getId(kpi) {
@@ -95,6 +97,7 @@ import UpdateForm from './UpdateForm';
                         <UpdateForm 
                             // kpi = {this.state.kpis}
                             kpi = {this.state.oneKPI}
+                            handleChange = { this.handleChange }
                             
                         />
                         
