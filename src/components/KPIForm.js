@@ -1,19 +1,55 @@
+/* eslint-disable eqeqeq */
 import React, { Component } from 'react';
 import axios from 'axios'
+ 
+const initialState = {
+    task: '',
+    taskError: '',
+    rateError: ''
+}
 
 class KPIForm extends Component {
-    state = {}
+    state = initialState;
+
+    validate = () => {
+        let taskError = '',
+            rateError = ''
+
+        if (!this.state.task) {
+            taskError = 'invalid task';
+        }
+
+        if (!this.state.task) {
+            taskError = 'invalid task';
+        }
+        
+        if (taskError) { 
+            this.setState({ taskError })
+            return false;
+        }
+        return true;
+    }
 
     handleSubmit = async (e) => {
         // e.preventDefault();
-        const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state;
+        const isValid = this.validate();
+        if (isValid) {
+            console.log(this.state)
+
+            const { task, start_date, supposed_end_date, rate, stage, status, percent, end_date } = this.state;
     
-        // API call
-        const data = { task, start_date, supposed_end_date, stage, status, percent, end_date };
-        console.log(data);
-        try {
-            await axios({ method : 'POST', url: 'http://localhost:5000/kpis', data });
-        } catch(e) { console.log(e) }
+            // API call
+            const data = { task, start_date, supposed_end_date, rate, stage, status, percent, end_date };
+            // console.log(data);
+            try {
+                await axios({ method : 'POST', url: 'http://localhost:5000/kpis', data });
+
+                // clear form  
+                // this.setState(initialState) 
+            } catch(e) { console.log(e) }
+    
+            
+        }
     }
     
     handleChange = (e) => {
@@ -22,29 +58,32 @@ class KPIForm extends Component {
     }
 
     render(){
-        const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state;
+        const { task, start_date, supposed_end_date, rate, stage, status, percent } = this.state;
         return ( 
             <div>
-                <div className="flex-wrapper">
-                    <div className="single-chart">
-                        <svg viewBox="0 0 36 36" className="circular-chart pink">
-                        <path className="circle-bg"
-                            d="M18 2.0845
-                            a 15.9155 15.9155 0 0 1 0 31.831
-                            a 15.9155 15.9155 0 0 1 0 -31.831"
-                        />
-                        <path className="circle"
-                            strokeDasharray={this.props.averagePercent}
-                            // strokeDasharray="26, 100"
-                            d="M18 2.0845
-                            a 15.9155 15.9155 0 0 1 0 31.831
-                            a 15.9155 15.9155 0 0 1 0 -31.831"
-                        />
-                        <text x="18" y="20.35" className="percentage">{ this.props.averagePercent }%</text>
-                        {/* <text x="18" y="20.35" className="percentage">30%</text> */}
-                        </svg>
+                {
+                    this.props.kpis_length > 0 && 
+                    <div className="flex-wrapper">
+                        <div className="single-chart">
+                            <svg viewBox="0 0 36 36" className="circular-chart pink">
+                            <path className="circle-bg"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path className="circle"
+                                strokeDasharray={this.props.getPercent}
+                                // strokeDasharray="26, 100"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <text x="18" y="20.35" className="percentage">{ this.props.getPercent }%</text>
+                            {/* <text x="18" y="20.35" className="percentage">30%</text> */}
+                            </svg>
+                        </div>
                     </div>
-                </div>
+                }  
 
                 {/* <!-- Button trigger modal --> */}
                 <div className="text-right">
@@ -74,6 +113,11 @@ class KPIForm extends Component {
                                         value={task}
                                         onChange={this.handleChange} />
                                     </div>
+                                    <div>
+                                        task error field: <strong  style={{color: 'red'}}>{this.state.taskError}</strong>
+                                    </div>
+
+
                                     <div  className="d-flex">
                                         <div className="form-group">
                                             <label>Start Date</label>
@@ -119,6 +163,7 @@ class KPIForm extends Component {
                                                 onChange={this.handleChange}
                                                 >
                                                 <option>-- Stage --</option>
+                                                <option value="Not Started">Not Started</option>
                                                 <option value="Requirement Gathering">Requirement Gathering</option>
                                                 <option value="In Production">In Production</option>
                                                 <option value="Rounding up">Rounding up</option>
@@ -136,6 +181,58 @@ class KPIForm extends Component {
                                                     <option value="Done">Done</option>
                                             </select>
                                     </div>
+                                    <div>
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="0"
+                                            checked={rate == "0"}
+                                            onChange={this.handleChange}
+                                        /> Not Started
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="25"
+                                            checked={rate == "25"}
+                                            onChange={this.handleChange}
+                                        /> Requirement Gathering
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="50"
+                                            checked={rate == "50"}
+                                            onChange={this.handleChange}
+                                        /> In Production
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="75"
+                                            checked={rate == "75"}
+                                            onChange={this.handleChange}
+                                        /> Rounding Up
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="100"
+                                            checked={rate == "100"}
+                                            onChange={this.handleChange}
+                                        /> Complete!
+                                      </label>
+                                    </div>
+                                    <p>Your gender: {rate}mmm</p>
                                     <div className="text-right">
                                         <button type="submit" className="btn btn-primary">Submit</button>
                                     </div>

@@ -1,6 +1,6 @@
+/* eslint-disable eqeqeq */
 import React, { Component } from 'react';
 import axios from 'axios';
-import Moment from 'react-moment';
 
 class UpdateForm extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class UpdateForm extends Component {
       task: '',
       start_date: '',
       supposed_end_date: '',
+      rate: '',
       stage: '',
       status: '',
       percent: ''
@@ -25,14 +26,13 @@ class UpdateForm extends Component {
   handleSubmit = async (e) => {
     // e.preventDefault()
 
-    const { task, start_date, supposed_end_date, stage, status, percent, end_date } = this.state;
+    const { task, start_date, supposed_end_date, rate, stage, status, percent, end_date } = this.state;
     
     // API call
-    const data = { task, start_date, supposed_end_date, stage, status, percent, end_date };
+    const data = { task, start_date, supposed_end_date, rate, stage, status, percent, end_date };
     console.log(data);
     try {
                 let result = await axios({ method : 'PUT', url: `http://localhost:5000/kpis/${this.props.kpi._id}`, data });
-                // this.setState({ kpi: result.data})
 
                 console.log("id", this.props.kpi._id)
                 console.log("result", result)
@@ -41,13 +41,13 @@ class UpdateForm extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.kpi._id !== prevProps.kpi._id) {
-      const { task, start_date, supposed_end_date, stage, status, percent } = this.props.kpi
-      this.setState({ task, start_date, supposed_end_date, stage, status, percent });
+      const { task, start_date, supposed_end_date, rate, stage, status, percent } = this.props.kpi
+      this.setState({ task, start_date, supposed_end_date, rate, stage, status, percent });
     }
   }
 
   render() {
-    const { task, start_date, supposed_end_date, stage, status, percent } = this.state
+    const { task, start_date, supposed_end_date, rate, stage, status, percent } = this.state
 
     return (        
         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -60,7 +60,6 @@ class UpdateForm extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                {/* <form onSubmit={() => console.log("on submit")}> */}
                 <form onSubmit={this.handleSubmit}>
                                     <div className="form-group">
                                         <input 
@@ -79,8 +78,8 @@ class UpdateForm extends Component {
                                             type="date" 
                                             className="form-control-sm"
                                             name="start_date"
-                                            value={<Moment format="D MMM YYYY">{start_date}</Moment>}
-                                            // onChange={this.handleChange}
+                                            defaultValue={start_date}
+                                            onChange={this.handleChange}
                                             />
                                         </div>
                                         <div className="form-group ml-1">
@@ -89,8 +88,8 @@ class UpdateForm extends Component {
                                             type="date" 
                                             className="form-control-sm" 
                                             name="supposed_end_date"
-                                            value={supposed_end_date}
-                                            // onChange={this.handleChange}
+                                            defaultValue={supposed_end_date}
+                                            onChange={this.handleChange}
                                             />
                                         </div>
                                         <div className="form-group ml-1">
@@ -99,10 +98,10 @@ class UpdateForm extends Component {
                                                 className="form-control-sm"
                                                 name="percent"
                                                 value={percent}
-                                                // onChange={this.handleChange}
+                                                onChange={this.handleChange}
                                                 >
                                                 <option value="0">0%</option>
-                                                 <option value="25">25%</option>
+                                                <option value="25">25%</option>
                                                 <option value="50">50%</option>
                                                 <option value="75">75%</option>
                                                 <option value="100">100%</option>
@@ -117,6 +116,7 @@ class UpdateForm extends Component {
                                                 onChange={this.handleChange}
                                                 >
                                                 <option>-- Stage --</option>
+                                                <option value="Not Started">Not Started</option>
                                                 <option value="Requirement Gathering">Requirement Gathering</option>
                                                 <option value="In Production">In Production</option>
                                                 <option value="Rounding up">Rounding up</option>
@@ -126,7 +126,7 @@ class UpdateForm extends Component {
                                                 className="form-control mx-2"
                                                 name="status"
                                                 value={status}
-                                                // onChange={this.handleChange}
+                                                onChange={this.handleChange}
                                                 >
                                                     <option>-- Status --</option>
                                                     <option value="Pending">Pending</option>
@@ -134,13 +134,62 @@ class UpdateForm extends Component {
                                                     <option value="Done">Done</option>
                                             </select>
                                     </div>
+                                    <div>
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="0"
+                                            checked={rate == "0"}
+                                            onChange={this.handleChange}
+                                        /> Not Started
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="25"
+                                            checked={rate == "25"}
+                                            onChange={this.handleChange}
+                                        /> Requirement Gathering
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="50"
+                                            checked={rate == "50"}
+                                            onChange={this.handleChange}
+                                        /> In Production
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="75"
+                                            checked={rate == "75"}
+                                            onChange={this.handleChange}
+                                        /> Rounding Up
+                                      </label>
+                                      <br />
+                                      <label>
+                                        <input 
+                                            type="radio" 
+                                            name="rate"
+                                            value="100"
+                                            checked={rate == "100"}
+                                            onChange={this.handleChange}
+                                        /> Complete!
+                                      </label>
+                                      <p>Your gender: {rate}mmm</p>
+                                    </div>
                                     <div className="modal-footer mt-2">
-                                        {/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button> */}
                                         <button 
-                                          type="click" 
+                                          type="submit" 
                                           className="btn btn-primary" 
-                                          // id={_id}
-                                          // onClick={() => {console.log(this.props.kpis._id)}}
                                           >Save changes</button>
                                     </div>
                                 </form>

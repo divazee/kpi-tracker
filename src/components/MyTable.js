@@ -10,30 +10,42 @@ import UpdateForm from './UpdateForm';
         state = {
             kpis : [],
             oneKPI: {},
-            sum: 0
+            loading: false
         }
 
         componentDidMount() {
-        this.getkpis();
-        this.getPercent();
+            this.setState({loading: true})
+            this.getkpis();
+            this.getPercent();
         }
 
         getkpis = async (e) => {
             try{
             let result = await axios.get('http://127.0.0.1:5000/kpis');
-            this.setState({ kpis : result.data });  
+            this.setState({ 
+                loading: false,
+                kpis : result.data
+            });  
             } catch(e) {
             console.log(e)
             }
         }
 
         getPercent = () => {
+            // var sum = 0;
+            // for(var i=0; i < this.state.kpis.length; i++){
+            //     sum += this.state.kpis[i].percent
+            // }
+            // var mean = sum/this.state.kpis.length
+            // return mean.toFixed(1);
+
             var sum = 0;
             for(var i=0; i < this.state.kpis.length; i++){
-                sum += this.state.kpis[i].percent
+                sum += this.state.kpis[i].rate
             }
+            
             var mean = sum/this.state.kpis.length
-            return mean;
+            return mean.toFixed(1);
         }
 
         getId(kpi) {
@@ -41,23 +53,18 @@ import UpdateForm from './UpdateForm';
                 oneKPI: kpi
             })
             console.log("object", kpi)
+        }
 
-            // const { task, start_date, supposed_end_date, stage, status, percent, _id, end_date } = kpi;
-    
-            // const data = { task, start_date, supposed_end_date, stage, status, percent, _id, end_date };
-            // console.log("data1", data);
-            // // console.log('data, da,', this.state.kpis);
-            // try {
-            //     let result = await axios({ method : 'PUT', url: `http://localhost:5000/kpis/${kpi._id}` });
-            //     this.setState({ kpi: result.data})
-
-            //     console.log("kpi4", kpi)
-            // } catch(e) { console.log(e) }
+        handleDelete = async (kpi) => {
+            console.log("delete", kpi)
+            try {
+                await axios({ method : 'DELETE', url: `http://localhost:5000/kpis/${kpi._id}`});
+            } catch(e) { console.log(e) }        
         }
 
         renderTableData() {
             return this.state.kpis.map((kpi, i) => {
-               const { task, start_date, supposed_end_date, stage, end_date, status, percent } = kpi
+               const { task, start_date, supposed_end_date, rate, stage, end_date, status, percent } = kpi
                return (
                 <tr key={i}>
                     <td>{i + 1}</td>
@@ -66,22 +73,26 @@ import UpdateForm from './UpdateForm';
                         <Moment format="D MMM YYYY">{start_date}</Moment>
                     </td>
                     <td><Moment format="D MMM YYYY">{supposed_end_date}</Moment></td>
-                    <td>{stage}</td>
+                    {/* <td>{rate}</td> */}
+                    {/* <td>{stage}</td> */}
                     <td>{status}</td>
-                    <td>{percent}</td>
+                    {/* <td>{percent}</td> */}
                     <td>
-                        <button 
+                        <a 
                             onClick = {() => this.getId(kpi)}
                             className="" data-toggle="modal"
                             href="#exampleModal">
                             <img src={update} alt="" width="20px" />
-                        </button>                        
+                        </a>                        
                         <UpdateForm 
                             kpi = {this.state.oneKPI}
-                            // kpi = {kpi}
                         />
-                        
-                        <img src={bin} alt="" width="20px" />
+                        <a 
+                            onClick={() => this.handleDelete(kpi)}
+                            // href="#g"
+                        >
+                            <img src={bin} alt="" width="20px" />
+                        </a>
                     </td>
                     <td>
                         <input 
@@ -95,13 +106,13 @@ import UpdateForm from './UpdateForm';
         
         render() {
             console.log("onekpi", this.state.oneKPI)
-            // console.log("kpis", this.state.kpis)
             return ( 
                 <div className="">
                     <div>
                         <KPIForm 
                             kpis = {this.state.kpis}
-                            averagePercent={this.state.kpis.length}
+                            kpis_length={this.state.kpis.length}
+                            getPercent = {this.getPercent()}
                         />
                         <button onClick={this.getPercent}>click</button>
                     </div>
@@ -112,15 +123,16 @@ import UpdateForm from './UpdateForm';
                                 <th>Task</th>
                                 <th>Start Date</th>
                                 <th>Supposed End Date</th>
-                                <th>Stage</th>
+                                {/* <th>Actual Stage</th> */}
+                                {/* <th>Stage</th> */}
                                 <th>Status</th>
-                                <th>Percent</th>
+                                {/* <th>Percent</th> */}
                                 <th>Action</th>
                                 <th>End Date</th>                                
                             </tr>
                         </thead>
                         <tbody>
-                            {this.renderTableData()}
+                            {this.state.loading ? <p>loading...</p> : this.renderTableData() }
                         </tbody>
                     </table>
                 </div>
