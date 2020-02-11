@@ -2,54 +2,56 @@
 import React, { Component } from 'react';
 import axios from 'axios'
  
-const initialState = {
-    task: '',
-    taskError: '',
-    rateError: ''
-}
+// const initialState = {
+//     task: '',
+//     rate: '',
+//     taskError: '',
+//     rateError: ''
+// }
 
 class KPIForm extends Component {
-    state = initialState;
+    // state = initialState;
+    state = {
+        task: '',
+        rate: '',
+        taskError: '',
+        rateError: ''
+    }
 
     validate = () => {
         let taskError = '',
             rateError = ''
 
-        if (!this.state.task) {
-            taskError = 'invalid task';
+        if (!this.state.task || this.state.task.length < 5) {
+            taskError = 'Invalid task';
         }
 
-        if (!this.state.task) {
-            taskError = 'invalid task';
+        if (!this.state.rate) {
+            rateError = 'Please select the current stage';
         }
-        
-        if (taskError) { 
-            this.setState({ taskError })
+
+        if (taskError || rateError) { 
+            this.setState({ taskError, rateError })
             return false;
         }
         return true;
     }
 
     handleSubmit = async (e) => {
-        // e.preventDefault();
-        const isValid = this.validate();
-        if (isValid) {
-            console.log(this.state)
-
+        e.preventDefault();
+        try {
             const { task, start_date, supposed_end_date, rate, stage, status, percent, end_date } = this.state;
-    
-            // API call
             const data = { task, start_date, supposed_end_date, rate, stage, status, percent, end_date };
-            // console.log(data);
-            try {
+            
+            const isValid = this.validate();
+            if (isValid) {
                 await axios({ method : 'POST', url: 'http://localhost:5000/kpis', data });
 
                 // clear form  
-                // this.setState(initialState) 
-            } catch(e) { console.log(e) }
-    
-            
-        }
+                // this.setState(initialState)
+                window.location.reload(); 
+            } 
+        } catch(e) { console.log(e) }            
     }
     
     handleChange = (e) => {
@@ -60,10 +62,9 @@ class KPIForm extends Component {
     render(){
         const { task, start_date, supposed_end_date, rate, stage, status, percent } = this.state;
         return ( 
-            <div>
+            <div className="mt-5">
                 {
                     this.props.kpis_length > 0 && 
-                    <div className="flex-wrapper">
                         <div className="single-chart">
                             <svg viewBox="0 0 36 36" className="circular-chart pink">
                             <path className="circle-bg"
@@ -72,17 +73,14 @@ class KPIForm extends Component {
                                 a 15.9155 15.9155 0 0 1 0 -31.831"
                             />
                             <path className="circle"
-                                strokeDasharray={this.props.getPercent}
-                                // strokeDasharray="26, 100"
+                                strokeDasharray={[this.props.getPercent, 100]}
                                 d="M18 2.0845
                                 a 15.9155 15.9155 0 0 1 0 31.831
                                 a 15.9155 15.9155 0 0 1 0 -31.831"
                             />
                             <text x="18" y="20.35" className="percentage">{ this.props.getPercent }%</text>
-                            {/* <text x="18" y="20.35" className="percentage">30%</text> */}
                             </svg>
                         </div>
-                    </div>
                 }  
 
                 {/* <!-- Button trigger modal --> */}
@@ -114,7 +112,7 @@ class KPIForm extends Component {
                                         onChange={this.handleChange} />
                                     </div>
                                     <div>
-                                        task error field: <strong  style={{color: 'red'}}>{this.state.taskError}</strong>
+                                        <strong  style={{color: 'red'}}>{this.state.taskError}</strong>
                                     </div>
 
 
@@ -232,7 +230,9 @@ class KPIForm extends Component {
                                         /> Complete!
                                       </label>
                                     </div>
-                                    <p>Your gender: {rate}mmm</p>
+                                    <div>
+                                        <strong  style={{color: 'red', fontSize: '10'}}>{this.state.rateError}</strong>
+                                    </div>
                                     <div className="text-right">
                                         <button type="submit" className="btn btn-primary">Submit</button>
                                     </div>

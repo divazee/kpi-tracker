@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class UpdateForm extends Component {
+class UpdateKPI extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +14,9 @@ class UpdateForm extends Component {
       rate: '',
       stage: '',
       status: '',
-      percent: ''
+      percent: '',
+      taskError: '',
+      rateError: ''
     }
   }
 
@@ -23,19 +25,36 @@ class UpdateForm extends Component {
     this.setState({ [name]: value })    
   }
 
+  validate = () => {
+    let taskError = '',
+        rateError = ''
+
+    if (!this.state.task || this.state.task.length < 5) {
+        taskError = 'Invalid task';
+    }
+
+    if (!this.state.rate) {
+        rateError = 'Please select the current stage';
+    }
+
+    if (taskError || rateError) { 
+        this.setState({ taskError, rateError })
+        return false;
+    }
+    return true;
+  }
+
   handleSubmit = async (e) => {
-    // e.preventDefault()
-
-    const { task, start_date, supposed_end_date, rate, stage, status, percent, end_date } = this.state;
-    
-    // API call
-    const data = { task, start_date, supposed_end_date, rate, stage, status, percent, end_date };
-    console.log(data);
+    e.preventDefault()
     try {
-                let result = await axios({ method : 'PUT', url: `http://localhost:5000/kpis/${this.props.kpi._id}`, data });
-
-                console.log("id", this.props.kpi._id)
-                console.log("result", result)
+      const { task, start_date, supposed_end_date, rate, stage, status, percent, end_date } = this.state;
+      const data = { task, start_date, supposed_end_date, rate, stage, status, percent, end_date };
+      
+      const isValid = this.validate();
+      if (isValid) {
+        await axios({ method : 'PUT', url: `http://localhost:5000/kpis/${this.props.kpi._id}`, data });
+        window.location.reload(); 
+      } 
     } catch(e) { console.log(e) }
   }
 
@@ -65,12 +84,15 @@ class UpdateForm extends Component {
                                         <input 
                                         type="text"
                                         className="form-control" 
-                                        // placeholder="Task" 
                                         name="task"              
                                         value={task}
                                         onChange={this.handleChange}
-                                         />
+                                        />
                                     </div>
+                                    <div>
+                                        <strong style={{color: 'red'}}>{this.state.taskError}</strong>
+                                    </div>
+
                                     <div  className="d-flex">
                                         <div className="form-group">
                                             <label>Start Date</label>
@@ -184,7 +206,9 @@ class UpdateForm extends Component {
                                             onChange={this.handleChange}
                                         /> Complete!
                                       </label>
-                                      <p>Your gender: {rate}mmm</p>
+                                      <div>
+                                        <strong  style={{color: 'red'}}>{this.state.rateError}</strong>
+                                    </div>
                                     </div>
                                     <div className="modal-footer mt-2">
                                         <button 
@@ -200,4 +224,4 @@ class UpdateForm extends Component {
      );
 }
 }
-export default UpdateForm;
+export default UpdateKPI;

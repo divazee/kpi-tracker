@@ -4,7 +4,8 @@ import axios from 'axios';
 import Moment from 'react-moment';
 import bin from "../images/bin.png";
 import update from '../images/update.png'
-import UpdateForm from './UpdateForm';
+import UpdateKPI from './UpdateKPI';
+import DeleteKPI from './DeleteKPI';
 
     class MyTable extends Component {
         state = {
@@ -32,13 +33,6 @@ import UpdateForm from './UpdateForm';
         }
 
         getPercent = () => {
-            // var sum = 0;
-            // for(var i=0; i < this.state.kpis.length; i++){
-            //     sum += this.state.kpis[i].percent
-            // }
-            // var mean = sum/this.state.kpis.length
-            // return mean.toFixed(1);
-
             var sum = 0;
             for(var i=0; i < this.state.kpis.length; i++){
                 sum += this.state.kpis[i].rate
@@ -52,19 +46,11 @@ import UpdateForm from './UpdateForm';
             this.setState({
                 oneKPI: kpi
             })
-            console.log("object", kpi)
-        }
-
-        handleDelete = async (kpi) => {
-            console.log("delete", kpi)
-            try {
-                await axios({ method : 'DELETE', url: `http://localhost:5000/kpis/${kpi._id}`});
-            } catch(e) { console.log(e) }        
         }
 
         renderTableData() {
             return this.state.kpis.map((kpi, i) => {
-               const { task, start_date, supposed_end_date, rate, stage, end_date, status, percent } = kpi
+               const { task, start_date, supposed_end_date, end_date, status } = kpi
                return (
                 <tr key={i}>
                     <td>{i + 1}</td>
@@ -73,26 +59,28 @@ import UpdateForm from './UpdateForm';
                         <Moment format="D MMM YYYY">{start_date}</Moment>
                     </td>
                     <td><Moment format="D MMM YYYY">{supposed_end_date}</Moment></td>
-                    {/* <td>{rate}</td> */}
-                    {/* <td>{stage}</td> */}
                     <td>{status}</td>
-                    {/* <td>{percent}</td> */}
                     <td>
                         <a 
                             onClick = {() => this.getId(kpi)}
-                            className="" data-toggle="modal"
+                            className="mr-2" data-toggle="modal"
                             href="#exampleModal">
                             <img src={update} alt="" width="20px" />
                         </a>                        
-                        <UpdateForm 
+                        <UpdateKPI 
                             kpi = {this.state.oneKPI}
                         />
                         <a 
-                            onClick={() => this.handleDelete(kpi)}
-                            // href="#g"
-                        >
+                            onClick = {() => this.getId(kpi)}
+                            // onClick={() => this.handleDelete(kpi)}
+                            className="btn btn-sm btn-warning p-0 ml-2"
+                            data-toggle="modal"
+                            href="#deleteModal">
                             <img src={bin} alt="" width="20px" />
                         </a>
+                        <DeleteKPI 
+                            kpi = {this.state.oneKPI}
+                        />
                     </td>
                     <td>
                         <input 
@@ -105,16 +93,15 @@ import UpdateForm from './UpdateForm';
         }
         
         render() {
-            console.log("onekpi", this.state.oneKPI)
+            // console.log("onekpi", this.state.oneKPI)
             return ( 
                 <div className="">
                     <div>
                         <KPIForm 
-                            kpis = {this.state.kpis}
+                            // kpis = {this.state.kpis}
                             kpis_length={this.state.kpis.length}
                             getPercent = {this.getPercent()}
                         />
-                        <button onClick={this.getPercent}>click</button>
                     </div>
                     <table className="table table-hover table-bordered mt-3">
                         <thead>
@@ -123,16 +110,19 @@ import UpdateForm from './UpdateForm';
                                 <th>Task</th>
                                 <th>Start Date</th>
                                 <th>Supposed End Date</th>
-                                {/* <th>Actual Stage</th> */}
-                                {/* <th>Stage</th> */}
                                 <th>Status</th>
-                                {/* <th>Percent</th> */}
                                 <th>Action</th>
                                 <th>End Date</th>                                
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.loading ? <p>loading...</p> : this.renderTableData() }
+                            {
+                                this.state.loading ?
+                                <tr>
+                                    <td className="col-span">loading...</td>
+                                </tr> : 
+                                this.renderTableData() 
+                            }
                         </tbody>
                     </table>
                 </div>
