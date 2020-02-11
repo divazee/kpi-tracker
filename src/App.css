@@ -41,11 +41,11 @@
   }
 }
 
-
+/* 
 .flex-wrapper {
   display: flex;
   flex-flow: row nowrap;
-}
+} */
 
 .single-chart {
   width: 33%;
@@ -82,7 +82,7 @@
   stroke: rgb(236, 116, 136);
 }
 
-.circular-chart.orange .circle {
+/* .circular-chart.orange .circle {
   stroke: #ff9f00;
 }
 
@@ -92,7 +92,7 @@
 
 .circular-chart.blue .circle {
   stroke: #3c9ee5;
-}
+} */
 
 .percentage {
   fill: #666;

@@ -16,10 +16,10 @@ class DeleteKPI extends React.Component {
     return ( 
         <div>
             <div className="modal fade bd-example-modal-lg" id="deleteModal" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-sm">
+                <div className="modal-dialog modal-dialog-centered modal-sm">
                     <div className="modal-content">
                         <div className="modal-body">
-                            Delete Task???
+                                Delete Task???
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>

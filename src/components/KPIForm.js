@@ -40,8 +40,8 @@ class KPIForm extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { task, start_date, supposed_end_date, rate, stage, status, percent, end_date } = this.state;
-            const data = { task, start_date, supposed_end_date, rate, stage, status, percent, end_date };
+            const { task, start_date, supposed_end_date, rate, status, end_date } = this.state;
+            const data = { task, start_date, supposed_end_date, rate, status, end_date };
             
             const isValid = this.validate();
             if (isValid) {
@@ -60,7 +60,7 @@ class KPIForm extends Component {
     }
 
     render(){
-        const { task, start_date, supposed_end_date, rate, stage, status, percent } = this.state;
+        const { task, start_date, supposed_end_date, rate, status } = this.state;
         return ( 
             <div className="mt-5">
                 {
@@ -103,22 +103,22 @@ class KPIForm extends Component {
                             <div className="modal-body">
                                 <form onSubmit={this.handleSubmit}>
                                     <div className="form-group">
+                                        <label>Task:</label>
                                         <input 
                                         type="text"
                                         className="form-control" 
-                                        placeholder="Task" 
                                         name="task"              
                                         value={task}
-                                        onChange={this.handleChange} />
+                                        onChange={this.handleChange}
+                                        required />
                                     </div>
                                     <div>
                                         <strong  style={{color: 'red'}}>{this.state.taskError}</strong>
                                     </div>
 
-
                                     <div  className="d-flex">
                                         <div className="form-group">
-                                            <label>Start Date</label>
+                                            <label>Start Date:</label>
                                             <input 
                                             type="date" 
                                             className="form-control-sm"
@@ -127,8 +127,8 @@ class KPIForm extends Component {
                                             onChange={this.handleChange}
                                             />
                                         </div>
-                                        <div className="form-group ml-3">
-                                            <label>Supposed End Date</label>
+                                        <div className="form-group ml-2">
+                                            <label>Supposed End Date:</label>
                                             <input 
                                             type="date" 
                                             className="form-control-sm" 
@@ -137,38 +137,10 @@ class KPIForm extends Component {
                                             onChange={this.handleChange}
                                             />
                                         </div>
-                                        <div className="form-group ml-3">
-                                            <label>Percent</label>
+                                        <div className="form-group ml-2">
+                                            <label>Status:</label>
                                             <select 
                                                 className="form-control-sm"
-                                                name="percent"
-                                                value={percent}
-                                                onChange={this.handleChange}
-                                                >
-                                                <option value="0">0%</option>
-                                                <option value="25">25%</option>
-                                                <option value="50">50%</option>
-                                                <option value="75">75%</option>
-                                                <option value="100">100%</option>
-                                            </select>   
-                                        </div>
-                                    </div>
-                                    <div  className="d-flex">
-                                            <select 
-                                                className="form-control"
-                                                name="stage"
-                                                value={stage}
-                                                onChange={this.handleChange}
-                                                >
-                                                <option>-- Stage --</option>
-                                                <option value="Not Started">Not Started</option>
-                                                <option value="Requirement Gathering">Requirement Gathering</option>
-                                                <option value="In Production">In Production</option>
-                                                <option value="Rounding up">Rounding up</option>
-                                                <option value="Complete">Complete</option>
-                                            </select>
-                                            <select 
-                                                className="form-control mx-2"
                                                 name="status"
                                                 value={status}
                                                 onChange={this.handleChange}
@@ -178,6 +150,7 @@ class KPIForm extends Component {
                                                     <option value="In Progress">In Progress</option>
                                                     <option value="Done">Done</option>
                                             </select>
+                                        </div>
                                     </div>
                                     <div>
                                       <label>
@@ -232,6 +205,13 @@ class KPIForm extends Component {
                                     </div>
                                     <div>
                                         <strong  style={{color: 'red', fontSize: '10'}}>{this.state.rateError}</strong>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="comment" className="col-form-label">
+                                            Comment
+                                            <small className=""> (optional)</small>:
+                                        </label>
+                                        <textarea className="form-control" id="comment" required></textarea>
                                     </div>
                                     <div className="text-right">
                                         <button type="submit" className="btn btn-primary">Submit</button>
