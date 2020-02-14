@@ -9,7 +9,8 @@ class LoginUser extends Component {
         this.state = { 
             email : '', 
             password: '',
-            redirect: false
+            redirect: false,
+            token: ''
         }
     }
 
@@ -22,7 +23,7 @@ class LoginUser extends Component {
         e.preventDefault()
         console.log("state", this.state)
         try {
-            const { email, password } = this.state
+            const { email, password, token } = this.state
             const data = { email, password } 
 
             let result = await axios({
@@ -36,6 +37,9 @@ class LoginUser extends Component {
             console.log("result1", result)
 
             if (result.status === 200) {
+                const token = result.data.token
+                console.log("tok", token)
+                localStorage.setItem('token', token)
                 this.props.history.push('/kpi-table');
             } else {
               const error = new Error(result.error);

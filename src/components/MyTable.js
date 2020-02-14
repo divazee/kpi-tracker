@@ -12,7 +12,6 @@ import DeleteKPI from './DeleteKPI';
             kpis : [],
             oneKPI: {},
             loading: false,
-            token: ''
         }
 
         componentDidMount() {
@@ -26,11 +25,10 @@ import DeleteKPI from './DeleteKPI';
             let result = await axios({ 
                 method: 'GET', 
                 url:`http://127.0.0.1:5000/kpis`,
-                // headers: { 
-                //     Authorization: `Bearer ${axios.defaults.headers.common}` 
-                //     // Authorization: `Bearer ${sessionStorage.getItem(axios.defaults.headers.common)}` 
-                // }
-                //   json: true,
+                headers: { 
+                    Authorization: `Bearer ${localStorage.getItem('token')}` 
+                },
+                // json: true,
             });
 
             // if (result.data.token) {
@@ -40,9 +38,7 @@ import DeleteKPI from './DeleteKPI';
                     kpis : result.data
                 }); 
             // }
-            } catch(e) {
-            console.log("e............",e)
-            }
+            } catch(e) {console.log("e............", e)}
         }
 
         getPercent = () => {
