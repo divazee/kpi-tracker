@@ -1,6 +1,7 @@
 /* eslint-disable eqeqeq */
 import React, { Component } from 'react';
 import axios from 'axios'
+import '../App.css'
  
 // const initialState = {
 //     task: '',
@@ -211,7 +212,7 @@ class KPIForm extends Component {
                                             Comment
                                             <small className=""> (optional)</small>:
                                         </label>
-                                        <textarea className="form-control" id="comment" required></textarea>
+                                        <textarea className="form-control" id="comment"></textarea>
                                     </div>
                                     <div className="text-right">
                                         <button type="submit" className="btn btn-primary">Submit</button>

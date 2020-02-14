@@ -1,7 +1,7 @@
 import React from 'react';
-// import logo from './logo.svg';
-import './App.css';
 import MyTable from './components/MyTable'
+import './stylesheets/login.css'
+import LoginUser from './auth/LoginUser';
 
 function App() {
   return (
@@ -21,7 +21,9 @@ function App() {
         </a>
       </header> */}
 
-      <MyTable />
+      <LoginUser />
+
+      {/* <MyTable /> */}
       
     </div>
   );

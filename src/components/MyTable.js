@@ -11,7 +11,8 @@ import DeleteKPI from './DeleteKPI';
         state = {
             kpis : [],
             oneKPI: {},
-            loading: false
+            loading: false,
+            token: ''
         }
 
         componentDidMount() {
@@ -22,13 +23,25 @@ import DeleteKPI from './DeleteKPI';
 
         getkpis = async (e) => {
             try{
-            let result = await axios.get('http://127.0.0.1:5000/kpis');
-            this.setState({ 
-                loading: false,
-                kpis : result.data
-            });  
+            let result = await axios({ 
+                method: 'GET', 
+                url:`http://127.0.0.1:5000/kpis`,
+                // headers: { 
+                //     Authorization: `Bearer ${axios.defaults.headers.common}` 
+                //     // Authorization: `Bearer ${sessionStorage.getItem(axios.defaults.headers.common)}` 
+                // }
+                //   json: true,
+            });
+
+            // if (result.data.token) {
+                console.log("object", result)
+                this.setState({ 
+                    loading: false,
+                    kpis : result.data
+                }); 
+            // }
             } catch(e) {
-            console.log(e)
+            console.log("e............",e)
             }
         }
 
@@ -119,7 +132,9 @@ import DeleteKPI from './DeleteKPI';
                             {
                                 this.state.loading ?
                                 <tr>
-                                    <td className="col-span">loading...</td>
+                                    <td colSpan ="7" className="text-center">
+                                        <p>Loading Data...</p>
+                                    </td>
                                 </tr> : 
                                 this.renderTableData() 
                             }
