@@ -10,7 +10,6 @@ class LoginUser extends Component {
             email : '', 
             password: '',
             redirect: false,
-            token: ''
         }
     }
 
@@ -23,16 +22,13 @@ class LoginUser extends Component {
         e.preventDefault()
         console.log("state", this.state)
         try {
-            const { email, password, token } = this.state
+            const { email, password } = this.state
             const data = { email, password } 
 
             let result = await axios({
                 method: 'POST', 
                 url: `http://localhost:5000/login`, 
-                data,
-                // headers: { 
-                //     Authorization: `Bearer ${axios.defaults.headers.common}` 
-                // }
+                data
             })
             console.log("result1", result)
 
