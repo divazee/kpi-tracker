@@ -6,6 +6,7 @@ import bin from "../images/bin.png";
 import update from '../images/update.png'
 import UpdateKPI from './UpdateKPI';
 import DeleteKPI from './DeleteKPI';
+import Logout from './Logout';
 
     class MyTable extends Component {
         state = {
@@ -102,10 +103,10 @@ import DeleteKPI from './DeleteKPI';
         }
         
         render() {
-            // console.log("onekpi", this.state.oneKPI)
             return ( 
-                <div className="">
+                <div className="container">
                     <div>
+                        <Logout/>
                         <KPIForm 
                             // kpis = {this.state.kpis}
                             kpis_length={this.state.kpis.length}
