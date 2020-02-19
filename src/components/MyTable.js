@@ -29,6 +29,9 @@ import Logout from './Logout';
                 headers: { 
                     Authorization: `Bearer ${localStorage.getItem('token')}` 
                 },
+                // body: {
+                //      userId:
+                // }
                 // json: true,
             });
 
@@ -119,7 +122,7 @@ import Logout from './Logout';
                                 <th>#</th>
                                 <th>Task</th>
                                 <th>Start Date</th>
-                                <th>Supposed End Date</th>
+                                <th>Due Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
                                 <th>End Date</th>                                
@@ -127,12 +130,12 @@ import Logout from './Logout';
                         </thead>
                         <tbody>
                             {
-                                this.state.loading ?
-                                <tr>
-                                    <td colSpan ="7" className="text-center">
-                                        <p>Loading Data...</p>
-                                    </td>
-                                </tr> : 
+                                // this.state.loading ?
+                                // <tr>
+                                //     <td colSpan ="7" className="text-center">
+                                //         <p>Loading Data...</p>
+                                //     </td>
+                                // </tr> : 
                                 this.renderTableData() 
                             }
                         </tbody>

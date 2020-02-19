@@ -1,6 +1,7 @@
 import React from 'react';
 import history from './../history';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class RegisterUser extends React.Component {
     constructor(props) {
@@ -25,6 +26,15 @@ class RegisterUser extends React.Component {
             let result = await axios({method: 'POST', url: `http://localhost:5000/register`, data})
 
             console.log("result1", result)
+
+            
+            // if (result.status === 201) {
+            //     this.props.history.push('/kpi-table');
+            // } else {
+            //   const error = new Error(result.error);
+            //   throw error;
+            // }
+
         } catch(err) { console.log("error", err) }
     }
 
@@ -64,9 +74,18 @@ class RegisterUser extends React.Component {
                             required
                             onChange={this.handleChange} />
                         </div>
-                        <button type="submit" className="btn btn-black" onClick={() => history.push('/login-user')}>Login</button>
+                        {/* <button type="submit" className="btn btn-black" onClick={() => history.push('/login-user')}>Login</button> */}
                         {/* <button type="submit" className="btn btn-secondary" onClick={() => history.push('/kpi-table')}>Register</button> */}
-                        <button onClick={this.handleSubmit}>Register</button>
+                        
+                        <div className="text-center">
+                            <button type="submit" className="btn btn-secondary" onClick={this.handleSubmit}>Register</button>
+                            <p>
+                                Want to log in???
+                                <Link to="/login-user" target="_self">
+                                    <small> Login</small>
+                                </Link>
+                            </p>  
+                        </div>                      
                     </form>
                 </div>
                 </div>

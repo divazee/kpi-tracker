@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import history from './../history';
 import axios from 'axios';
-import {Link, Redirect} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class LoginUser extends Component {
     constructor(props) {
@@ -87,11 +87,18 @@ class LoginUser extends Component {
                                     required
                                     onChange={this.handleChange} />
                             </div>
-                            <button type="submit" className="btn btn-black" onClick={this.loginUser}>
-                                    Login
-                            </button>
+                            <div className="text-center">
+                            <button type="submit" className="btn btn-black" onClick={this.loginUser}>Login</button>
                             {/* <Link to="/kpi-table" target="_self"></Link> */}
-                            <button type="submit" className="btn btn-secondary"  onClick={() => history.push('/register-user')}>Register</button>
+                            {/* <button type="submit" className="btn btn-secondary"  onClick={() => history.push('/register-user')}>Register</button> */}
+
+                            <p>
+                                New user???
+                                <Link to="/register-user" target="_self">
+                                <small> Register</small>
+                            </Link>
+                            </p>
+                            </div>
                         </form>
                     </div>
                     </div>

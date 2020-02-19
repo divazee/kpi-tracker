@@ -46,7 +46,15 @@ class KPIForm extends Component {
             
             const isValid = this.validate();
             if (isValid) {
-                await axios({ method : 'POST', url: 'http://localhost:5000/kpis', data });
+                let result = await axios({ 
+                    method : 'POST', 
+                    url: 'http://localhost:5000/kpis', 
+                    data,
+                    headers: { 
+                        Authorization: `Bearer ${localStorage.getItem('token')}` 
+                    }
+                });
+                console.log("object2", result)
 
                 // clear form  
                 // this.setState(initialState)
