@@ -7,6 +7,8 @@ class RegisterUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
+            firstname: '',
+            lastname: '',
             email: '',
             password: ''
          }
@@ -21,8 +23,8 @@ class RegisterUser extends React.Component {
         e.preventDefault();
         console.log("state2", this.state)
         try {                
-            const { email, password } = this.state
-            const data = { email, password } 
+            const { email, password, firstname, lastname } = this.state
+            const data = { email, password, firstname, lastname } 
             let result = await axios({method: 'POST', url: `http://localhost:5000/register`, data})
 
             console.log("result1", result)
@@ -55,6 +57,26 @@ class RegisterUser extends React.Component {
                     {/* <form onSubmit={this.handleSubmit}> */}
                     <form>
                         <div className="form-group">
+                            <label>First Name</label>
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                name="firstname" 
+                                placeholder="First Name"
+                                required 
+                                onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label>Last Name</label>
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                name="lastname" 
+                                placeholder="Last Name"
+                                required 
+                                onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group">
                             <label>Email</label>
                             <input 
                                 type="text" 
@@ -80,10 +102,10 @@ class RegisterUser extends React.Component {
                         <div className="text-center">
                             <button type="submit" className="btn btn-secondary" onClick={this.handleSubmit}>Register</button>
                             <p>
-                                Want to log in???
-                                <Link to="/login-user" target="_self">
-                                    <small> Login</small>
-                                </Link>
+                                <small>
+                                    Already Registered???
+                                    <Link to="/login-user" target="_self"> Login</Link>
+                                </small>
                             </p>  
                         </div>                      
                     </form>

@@ -13,12 +13,31 @@ import Logout from './Logout';
             kpis : [],
             oneKPI: {},
             loading: false,
+            firstname: ''
         }
 
         componentDidMount() {
             this.setState({loading: true})
             this.getkpis();
             this.getPercent();
+            this.getLoggedUser()
+        }
+
+        getLoggedUser = async() => {
+            try{
+                let result = await axios({ 
+                    method: 'GET', 
+                    url:`http://127.0.0.1:5000/user`,
+                    headers: { 
+                        Authorization: `Bearer ${localStorage.getItem('token')}` 
+                    }
+                });
+
+                console.log("object77777", result)
+                this.setState({ 
+                    firstname: result.data.first_name
+                }); 
+            } catch(e) {console.log("e............", e)}
         }
 
         getkpis = async (e) => {
@@ -39,7 +58,7 @@ import Logout from './Logout';
                 console.log("object", result)
                 this.setState({ 
                     loading: false,
-                    kpis : result.data
+                    kpis : result.data,
                 }); 
             // }
             } catch(e) {console.log("e............", e)}
@@ -109,6 +128,8 @@ import Logout from './Logout';
             return ( 
                 <div className="container">
                     <div>
+                    {/* Current User:  */}
+                    <span className="user"> {this.state.firstname} </span>
                         <Logout/>
                         <KPIForm 
                             // kpis = {this.state.kpis}
