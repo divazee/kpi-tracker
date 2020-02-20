@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { Component } from "react";
 import axios from "axios";
 
@@ -112,12 +113,12 @@ class UpdateKPI extends Component {
   render() {
     const {
       task,
-      start_date,
-      supposed_end_date,
+      // start_date,
+      // supposed_end_date,
       rate,
-      stage,
+      // stage,
       status,
-      percent,
+      // percent,
       comment
     } = this.state;
 
@@ -167,43 +168,43 @@ class UpdateKPI extends Component {
                   </strong>
                 </div>
 
-                <div className="d-flex">
-                  {/* <div className="form-group">
-                                  <label>Start Date</label>
-                                            <input 
-                                            type="date" 
-                                            className="form-control-sm"
-                                            name="start_date"
-                                            defaultValue={start_date}
-                                            onChange={this.handleChange}
-                                            />
-                                        </div>
-                                        <div className="form-group ml-1">
-                                            <label>Supposed End Date</label>
-                                            <input 
-                                            type="date" 
-                                            className="form-control-sm" 
-                                            name="supposed_end_date"
-                                            defaultValue={supposed_end_date}
-                                            onChange={this.handleChange}
-                                            />
-                                        </div>
-                                        <div className="form-group ml-1">
-                                            <label>Percent</label>
-                                            <select 
-                                                className="form-control-sm"
-                                                name="percent"
-                                                value={percent}
-                                                onChange={this.handleChange}
-                                                >
-                                                <option value="0">0%</option>
-                                                <option value="25">25%</option>
-                                                <option value="50">50%</option>
-                                                <option value="75">75%</option>
-                                                <option value="100">100%</option>
-                                            </select>   
-                                        </div> */}
-                </div>
+                {/* <div className="d-flex">
+                  <div className="form-group">
+                    <label>Start Date</label>
+                    <input
+                      type="date"
+                      className="form-control-sm"
+                      name="start_date"
+                      defaultValue={start_date}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  <div className="form-group ml-1">
+                    <label>Supposed End Date</label>
+                    <input
+                      type="date"
+                      className="form-control-sm"
+                      name="supposed_end_date"
+                      defaultValue={supposed_end_date}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                  <div className="form-group ml-1">
+                    <label>Percent</label>
+                    <select
+                      className="form-control-sm"
+                      name="percent"
+                      value={percent}
+                      onChange={this.handleChange}
+                    >
+                      <option value="0">0%</option>
+                      <option value="25">25%</option>
+                      <option value="50">50%</option>
+                      <option value="75">75%</option>
+                      <option value="100">100%</option>
+                    </select>
+                  </div>
+                </div> */}
                 <div className="">
                   {/* <select 
                                                 className="form-control"
