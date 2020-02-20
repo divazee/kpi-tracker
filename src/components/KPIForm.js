@@ -41,8 +41,8 @@ class KPIForm extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { task, start_date, supposed_end_date, rate, status, end_date } = this.state;
-            const data = { task, start_date, supposed_end_date, rate, status, end_date };
+            const { task, start_date, supposed_end_date, rate, status, end_date, comment } = this.state;
+            const data = { task, start_date, supposed_end_date, rate, status, end_date, comment };
             
             const isValid = this.validate();
             if (isValid) {
@@ -69,7 +69,7 @@ class KPIForm extends Component {
     }
 
     render(){
-        const { task, start_date, supposed_end_date, rate, status } = this.state;
+        const { task, start_date, supposed_end_date, rate, status, comment } = this.state;
         return ( 
             <div className="mt-5">
                 {
@@ -104,7 +104,7 @@ class KPIForm extends Component {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="kpiModalLabel">Modal title</h5>
+                                <h5 className="modal-title bold-label" id="kpiModalLabel">Add KPI</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -112,7 +112,7 @@ class KPIForm extends Component {
                             <div className="modal-body">
                                 <form onSubmit={this.handleSubmit}>
                                     <div className="form-group">
-                                        <label>Task:</label>
+                                        <label className="m-0 p-0 bold-label">Task:</label>
                                         <input 
                                         type="text"
                                         className="form-control" 
@@ -125,31 +125,31 @@ class KPIForm extends Component {
                                         <strong  style={{color: 'red'}}>{this.state.taskError}</strong>
                                     </div>
 
-                                    <div  className="d-flex">
-                                        <div className="form-group">
-                                            <label>Start Date:</label>
+                                    <div  className="form-group m-0 p-0 d-flex">
+                                        <div className="">
+                                            <label className="m-0 p-0 bold-label">Start Date:</label>
                                             <input 
                                             type="date" 
-                                            className="form-control-sm"
+                                            className="form-group"
                                             name="start_date"
                                             value={start_date}
                                             onChange={this.handleChange}
                                             />
                                         </div>
-                                        <div className="form-group ml-2">
-                                            <label>Supposed End Date:</label>
+                                        <div className="">
+                                            <label className="m-0 p-0 bold-label">Due Date:</label>
                                             <input 
                                             type="date" 
-                                            className="form-control-sm" 
+                                            className="form-group" 
                                             name="supposed_end_date"
                                             value={supposed_end_date}
                                             onChange={this.handleChange}
                                             />
                                         </div>
-                                        <div className="form-group ml-2">
-                                            <label>Status:</label>
+                                        <div className="ml-1">
+                                            <label className="m-0 p-0 bold-label">Status:</label>
                                             <select 
-                                                className="form-control-sm"
+                                                className="form-group py-1"
                                                 name="status"
                                                 value={status}
                                                 onChange={this.handleChange}
@@ -161,8 +161,15 @@ class KPIForm extends Component {
                                             </select>
                                         </div>
                                     </div>
-                                    <div>
-                                      <label>
+                                    <div className="">
+                                        <label htmlFor="comment" className="col-form-label m-0 p-0 bold-label">
+                                            Comment
+                                            <small className=""> (optional)</small>:
+                                        </label>
+                                        <textarea className="form-control" id="comment" name="comment" value={comment} onChange={this.handleChange} />
+                                    </div>
+                                    <div className="mt-2">
+                                      <label className="m-0 p-0 bold-label">Stage: </label><br />
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -170,9 +177,7 @@ class KPIForm extends Component {
                                             checked={rate == "0"}
                                             onChange={this.handleChange}
                                         /> Not Started
-                                      </label>
                                       <br />
-                                      <label>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -180,9 +185,7 @@ class KPIForm extends Component {
                                             checked={rate == "25"}
                                             onChange={this.handleChange}
                                         /> Requirement Gathering
-                                      </label>
                                       <br />
-                                      <label>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -190,9 +193,7 @@ class KPIForm extends Component {
                                             checked={rate == "50"}
                                             onChange={this.handleChange}
                                         /> In Production
-                                      </label>
                                       <br />
-                                      <label>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -200,9 +201,7 @@ class KPIForm extends Component {
                                             checked={rate == "75"}
                                             onChange={this.handleChange}
                                         /> Rounding Up
-                                      </label>
                                       <br />
-                                      <label>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -210,17 +209,9 @@ class KPIForm extends Component {
                                             checked={rate == "100"}
                                             onChange={this.handleChange}
                                         /> Complete!
-                                      </label>
                                     </div>
                                     <div>
                                         <strong  style={{color: 'red', fontSize: '10'}}>{this.state.rateError}</strong>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="comment" className="col-form-label">
-                                            Comment
-                                            <small className=""> (optional)</small>:
-                                        </label>
-                                        <textarea className="form-control" id="comment"></textarea>
                                     </div>
                                     <div className="text-right">
                                         <button type="submit" className="btn btn-primary">Submit</button>

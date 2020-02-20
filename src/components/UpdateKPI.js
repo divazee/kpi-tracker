@@ -13,6 +13,7 @@ class UpdateKPI extends Component {
       supposed_end_date: '',
       rate: '',
       stage: '',
+      comment: '',
       status: '',
       percent: '',
       taskError: '',
@@ -47,8 +48,8 @@ class UpdateKPI extends Component {
   handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const { task, start_date, supposed_end_date, rate, stage, status, percent, end_date } = this.state;
-      const data = { task, start_date, supposed_end_date, rate, stage, status, percent, end_date };
+      const { task, start_date, supposed_end_date, rate, stage, status, percent, end_date, comment } = this.state;
+      const data = { task, start_date, supposed_end_date, rate, stage, status, percent, end_date, comment };
       
       const isValid = this.validate();
       if (isValid) {
@@ -60,20 +61,20 @@ class UpdateKPI extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.kpi._id !== prevProps.kpi._id) {
-      const { task, start_date, supposed_end_date, rate, stage, status, percent } = this.props.kpi
-      this.setState({ task, start_date, supposed_end_date, rate, stage, status, percent });
+      const { task, start_date, supposed_end_date, rate, stage, status, percent, comment } = this.props.kpi
+      this.setState({ task, start_date, supposed_end_date, rate, stage, status, percent, comment });
     }
   }
 
   render() {
-    const { task, start_date, supposed_end_date, rate, stage, status, percent } = this.state
+    const { task, start_date, supposed_end_date, rate, stage, status, percent, comment } = this.state
 
     return (        
         <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">Update KPI</h5>
+                <h5 className="modal-title bold-label" id="exampleModalLabel">Update KPI</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -81,6 +82,7 @@ class UpdateKPI extends Component {
               <div className="modal-body">
                 <form onSubmit={this.handleSubmit}>
                                     <div className="form-group">
+                                    <label className="m-0 p-0 bold-label">Task:</label><br />
                                         <input 
                                         type="text"
                                         className="form-control" 
@@ -94,7 +96,7 @@ class UpdateKPI extends Component {
                                     </div>
 
                                     <div  className="d-flex">
-                                        <div className="form-group">
+                                        {/* <div className="form-group">
                                             <label>Start Date</label>
                                             <input 
                                             type="date" 
@@ -128,10 +130,10 @@ class UpdateKPI extends Component {
                                                 <option value="75">75%</option>
                                                 <option value="100">100%</option>
                                             </select>   
-                                        </div>
+                                        </div> */}
                                     </div>
-                                    <div  className="d-flex">
-                                            <select 
+                                    <div  className="">
+                                            {/* <select 
                                                 className="form-control"
                                                 name="stage"
                                                 value={stage}
@@ -143,21 +145,28 @@ class UpdateKPI extends Component {
                                                 <option value="In Production">In Production</option>
                                                 <option value="Rounding up">Rounding up</option>
                                                 <option value="Complete">Complete</option>
-                                            </select>
+                                            </select> */}
+                                            <label className="bold-label m-0 p-0">Status:</label><br />
                                             <select 
-                                                className="form-control mx-2"
+                                                className="form-control"
                                                 name="status"
                                                 value={status}
                                                 onChange={this.handleChange}
                                                 >
-                                                    <option>-- Status --</option>
                                                     <option value="Pending">Pending</option>
                                                     <option value="In Progress">In Progress</option>
                                                     <option value="Done">Done</option>
                                             </select>
                                     </div>
+                                    <div className="form-group mt-2">
+                                        <label htmlFor="comment" className="col-form-label m-0 p-0 bold-label">
+                                            Comment
+                                            <small className=""> (optional)</small>:
+                                        </label>
+                                          <textarea className="form-control" id="comment" name="comment" value={comment} onChange={this.handleChange}/>
+                                    </div>
                                     <div>
-                                      <label>
+                                      <label className="m-0 p-0 bold-label">Stage:</label><br/>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -165,9 +174,7 @@ class UpdateKPI extends Component {
                                             checked={rate == "0"}
                                             onChange={this.handleChange}
                                         /> Not Started
-                                      </label>
                                       <br />
-                                      <label>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -175,9 +182,7 @@ class UpdateKPI extends Component {
                                             checked={rate == "25"}
                                             onChange={this.handleChange}
                                         /> Requirement Gathering
-                                      </label>
                                       <br />
-                                      <label>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -185,9 +190,7 @@ class UpdateKPI extends Component {
                                             checked={rate == "50"}
                                             onChange={this.handleChange}
                                         /> In Production
-                                      </label>
                                       <br />
-                                      <label>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -195,9 +198,7 @@ class UpdateKPI extends Component {
                                             checked={rate == "75"}
                                             onChange={this.handleChange}
                                         /> Rounding Up
-                                      </label>
                                       <br />
-                                      <label>
                                         <input 
                                             type="radio" 
                                             name="rate"
@@ -205,7 +206,6 @@ class UpdateKPI extends Component {
                                             checked={rate == "100"}
                                             onChange={this.handleChange}
                                         /> Complete!
-                                      </label>
                                       <div>
                                         <strong  style={{color: 'red'}}>{this.state.rateError}</strong>
                                     </div>

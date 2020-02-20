@@ -24,9 +24,10 @@
   /* color: white; */
 }
 
-/* .font-color {
-  color: white;
-} */
+.bold-label {
+  /* color: white; */
+  font-weight: bold;
+}
 
 .App-link {
   color: #61dafb;
