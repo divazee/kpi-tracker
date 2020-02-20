@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 import React, { Component } from "react";
 import axios from "axios";
 
@@ -170,7 +169,7 @@ class UpdateKPI extends Component {
 
                 <div className="d-flex">
                   {/* <div className="form-group">
-                                            <label>Start Date</label>
+                                  <label>Start Date</label>
                                             <input 
                                             type="date" 
                                             className="form-control-sm"
