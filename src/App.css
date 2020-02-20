@@ -24,8 +24,13 @@
   /* color: white; */
 }
 
+.modalhead{
+  margin-left: 40% !important;
+  font-size: 25px;
+  font-weight: bold;
+}
+
 .bold-label {
-  /* color: white; */
   font-weight: bold;
 }
 

@@ -59,7 +59,7 @@ class LoginUser extends Component {
             <div>
                 <div className="sidenav">
                     <div className="login-main-text">
-                        <h2>LOGIN...... </h2> 
+                        <h2 className="reg-head">LOGIN...... </h2> 
                         <p>Please Login or Register to access your KPIs</p>
                     </div>
                 </div>

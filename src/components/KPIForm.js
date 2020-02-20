@@ -104,7 +104,7 @@ class KPIForm extends Component {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title bold-label" id="kpiModalLabel">Add KPI</h5>
+                                <h5 className="modal-title modalhead text-success" id="kpiModalLabel">Add KPI</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -214,7 +214,7 @@ class KPIForm extends Component {
                                         <strong  style={{color: 'red', fontSize: '10'}}>{this.state.rateError}</strong>
                                     </div>
                                     <div className="text-right">
-                                        <button type="submit" className="btn btn-primary">Submit</button>
+                                        <button type="submit" className="btn btn-success">Submit</button>
                                     </div>
                                 </form>
                             </div>

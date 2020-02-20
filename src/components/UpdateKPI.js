@@ -74,7 +74,7 @@ class UpdateKPI extends Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title bold-label" id="exampleModalLabel">Update KPI</h5>
+                <h5 className="modal-title modalhead text-success" id="exampleModalLabel">Update KPI</h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -213,7 +213,7 @@ class UpdateKPI extends Component {
                                     <div className="modal-footer mt-2">
                                         <button 
                                           type="submit" 
-                                          className="btn btn-primary" 
+                                          className="btn btn-success" 
                                           >Save changes</button>
                                     </div>
                                 </form>

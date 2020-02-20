@@ -71,3 +71,8 @@ body {
     background-color: rgb(236, 116, 136) !important;
     color: #fff;
 }
+
+.reg-head {
+    font-size: 50px;
+    font-weight: bold;
+}

@@ -130,12 +130,12 @@ import Logout from './Logout';
                         </thead>
                         <tbody>
                             {
-                                // this.state.loading ?
-                                // <tr>
-                                //     <td colSpan ="7" className="text-center">
-                                //         <p>Loading Data...</p>
-                                //     </td>
-                                // </tr> : 
+                                this.state.loading ?
+                                <tr>
+                                    <td colSpan ="7" className="text-center">
+                                        <p>Loading Data...</p>
+                                    </td>
+                                </tr> : 
                                 this.renderTableData() 
                             }
                         </tbody>

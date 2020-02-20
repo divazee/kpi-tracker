@@ -45,7 +45,7 @@ class RegisterUser extends React.Component {
         <div>
             <div className="sidenav">
                 <div className="login-main-text">
-                    <h2>REGISTER </h2> 
+                    <h2 className="reg-head">REGISTER </h2> 
                     {/* <p>Please Login or Register to access your KPIs</p> */}
                 </div>
             </div>

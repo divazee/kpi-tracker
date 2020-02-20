@@ -7,7 +7,7 @@
 
 .slideshow-text h1 {
     color: rgb(236, 116, 136);
-    font-size: 400%;
+    font-size: 500%;
     font-weight: bolder;
 }
 
@@ -53,21 +53,21 @@
 }
 
 .slideshow li:nth-child(2) { 
-    background-image: url(https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60);
+    background-image: url(https://images.unsplash.com/photo-1500679215756-b09636d3786e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60);
     animation-delay: 5s; 
 }
 
 .slideshow li:nth-child(3) { 
-    background-image: url(https://images.unsplash.com/photo-1536060316316-2466bda904f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60);
+    background-image: url(https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60);
     animation-delay: 10s; 
 }
 .slideshow li:nth-child(4) { 
     background-image: url(https://images.unsplash.com/photo-1524508762098-fd966ffb6ef9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60);
-    animation-delay: 20s; 
+    animation-delay: 30s; 
 }
 .slideshow li:nth-child(5) { 
     background-image: url(https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60);
-    animation-delay: 30s; 
+    animation-delay: 40s; 
 }
 
 @keyframes imageAnimation { 
