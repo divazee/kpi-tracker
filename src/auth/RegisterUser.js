@@ -1,7 +1,10 @@
 import React from "react";
-import history from "./../history";
+// import history from "./../history";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+// import "../../node_modules/react-toastify/dist/ReactToastify.css"
+import "react-toastify/dist/ReactToastify.css";
 
 class RegisterUser extends React.Component {
   constructor(props) {
@@ -10,7 +13,8 @@ class RegisterUser extends React.Component {
       firstname: "",
       lastname: "",
       email: "",
-      password: ""
+      password: "",
+      feedback: ""
     };
   }
 
@@ -33,6 +37,11 @@ class RegisterUser extends React.Component {
 
       console.log("result1", result);
 
+      if (result.status === 201) {
+        toast.success("User Created... Please Login");
+        // this.props.history.push("/kpi-table");
+      }
+
       // if (result.status === 201) {
       //     this.props.history.push('/kpi-table');
       // } else {
@@ -40,7 +49,12 @@ class RegisterUser extends React.Component {
       //   throw error;
       // }
     } catch (err) {
-      console.log("error", err);
+      console.log("error", err.response.status);
+      if (err.response.status === 409) {
+        toast.warn("Mail Exists");
+      } else {
+        toast.error("Invalid Mail");
+      }
     }
   };
 
@@ -49,10 +63,10 @@ class RegisterUser extends React.Component {
     // console.log("object", AUTH_TOKEN)
     return (
       <div>
+        <ToastContainer hideProgressBar={true} />
         <div className="sidenav">
           <div className="login-main-text">
             <h2 className="reg-head">REGISTER </h2>
-            {/* <p>Please Login or Register to access your KPIs</p> */}
           </div>
         </div>
         <div className="main">
