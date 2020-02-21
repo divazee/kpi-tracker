@@ -206,19 +206,21 @@ class UpdateKPI extends Component {
                   </div>
                 </div> */}
                 <div className="">
-                  {/* <select 
-                                                className="form-control"
-                                                name="stage"
-                                                value={stage}
-                                                onChange={this.handleChange}
-                                                >
-                                                <option>-- Stage --</option>
-                                                <option value="Not Started">Not Started</option>
-                                                <option value="Requirement Gathering">Requirement Gathering</option>
-                                                <option value="In Production">In Production</option>
-                                                <option value="Rounding up">Rounding up</option>
-                                                <option value="Complete">Complete</option>
-                                            </select> */}
+                  {/* <select
+                    className="form-control"
+                    name="stage"
+                    value={stage}
+                    onChange={this.handleChange}
+                  >
+                    <option>-- Stage --</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="Requirement Gathering">
+                      Requirement Gathering
+                    </option>
+                    <option value="In Production">In Production</option>
+                    <option value="Rounding up">Rounding up</option>
+                    <option value="Complete">Complete</option>
+                  </select> */}
                   <label className="bold-label m-0 p-0">Status:</label>
                   <br />
                   <select
@@ -234,7 +236,7 @@ class UpdateKPI extends Component {
                 </div>
                 <div className="form-group mt-2">
                   <label
-                    htmlFor="comment"
+                    // htmlFor="comment"
                     className="col-form-label m-0 p-0 bold-label"
                   >
                     Comment
@@ -242,7 +244,7 @@ class UpdateKPI extends Component {
                   </label>
                   <textarea
                     className="form-control"
-                    id="comment"
+                    // id="comment"
                     name="comment"
                     value={comment}
                     onChange={this.handleChange}

@@ -1,111 +1,119 @@
-import React, { Component } from 'react';
-import history from './../history';
-import axios from 'axios';
-import { Link } from 'react-router-dom'
+import React, { Component } from "react";
+import history from "./../history";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 class LoginUser extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            email : '', 
-            password: '',
-            redirect: false,
-        }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      redirect: false
+    };
+  }
 
-    handleChange = (e) => 
+  handleChange = e =>
     this.setState({
-        [e.target.name] : e.target.value
-    })
+      [e.target.name]: e.target.value
+    });
 
-    loginUser = async (e) => {
-        e.preventDefault()
-        console.log("state", this.state)
-        try {
-            const { email, password } = this.state
-            const data = { email, password } 
+  loginUser = async e => {
+    e.preventDefault();
+    console.log("state", this.state);
+    try {
+      const { email, password } = this.state;
+      const data = { email, password };
 
-            let result = await axios({
-                method: 'POST', 
-                url: `http://localhost:5000/login`, 
-                data
-            })
-            console.log("result1", result)
+      let result = await axios({
+        method: "POST",
+        url: `http://localhost:5000/login`,
+        data
+      });
+      console.log("result1", result);
 
-            if (result.status === 200) {
-                const token = result.data.token
-                console.log("tok", token)
-                localStorage.setItem('token', token)
-                this.props.history.push('/kpi-table');
-            } else {
-              const error = new Error(result.error);
-              throw error;
-            }
-         
-            
+      if (result.status === 200) {
+        const token = result.data.token;
+        console.log("tok", token);
+        localStorage.setItem("token", token);
+        this.props.history.push("/kpi-table");
+      } else {
+        const error = new Error(result.error);
+        throw error;
+      }
 
-        // if(result.data.message === "Auth successful"){
-        //    this.setState({redirect: true});
-        // }
-        } catch(err) { console.log("error", err) }
+      // if(result.data.message === "Auth successful"){
+      //    this.setState({redirect: true});
+      // }
+    } catch (err) {
+      console.log("error", err);
     }
+  };
 
-    render() { 
-        // const {redirect} = this.state;
-        // if(redirect){
-        //     return <Redirect to={"/kpi-table"}/>
-        // }          
-        return ( 
-            <div>
-                <div className="sidenav">
-                    <div className="login-main-text">
-                        <h2 className="reg-head">LOGIN...... </h2> 
-                        <p>Please Login or Register to access your KPIs</p>
-                    </div>
+  render() {
+    // const {redirect} = this.state;
+    // if(redirect){
+    //     return <Redirect to={"/kpi-table"}/>
+    // }
+    return (
+      <div>
+        <div className="sidenav">
+          <div className="login-main-text">
+            <h2 className="reg-head">LOGIN...... </h2>
+            <p>Please Login or Register to access your KPIs</p>
+          </div>
+        </div>
+        <div className="main">
+          <div className="col-md-6 col-sm-12">
+            <div className="login-form">
+              <form>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="email"
+                    placeholder="Email"
+                    required
+                    onChange={this.handleChange}
+                  />
                 </div>
-                <div className="main">
-                    <div className="col-md-6 col-sm-12">
-                    <div className="login-form">
-                        <form>
-                            <div className="form-group">
-                                <label>Email</label>
-                                <input
-                                    type="text" 
-                                    className="form-control" 
-                                    name="email" 
-                                    placeholder="Email"
-                                    required 
-                                    onChange={this.handleChange} />
-                            </div>
-                            <div className="form-group">
-                                <label>Password</label>
-                                <input
-                                    type="password" 
-                                    className="form-control"
-                                    name="password" 
-                                    placeholder="Password"
-                                    required
-                                    onChange={this.handleChange} />
-                            </div>
-                            <div className="text-center">
-                            <button type="submit" className="btn btn-black" onClick={this.loginUser}>Login</button>
-                            {/* <Link to="/kpi-table" target="_self"></Link> */}
-                            {/* <button type="submit" className="btn btn-secondary"  onClick={() => history.push('/register-user')}>Register</button> */}
+                <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    placeholder="Password"
+                    required
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="text-center">
+                  <button
+                    type="submit"
+                    className="btn btn-black"
+                    onClick={this.loginUser}
+                  >
+                    Login
+                  </button>
+                  {/* <Link to="/kpi-table" target="_self"></Link> */}
+                  {/* <button type="submit" className="btn btn-secondary"  onClick={() => history.push('/register-user')}>Register</button> */}
 
-                            <p>
-                                New user???
-                                <Link to="/register-user" target="_self">
-                                <small> Register</small>
-                            </Link>
-                            </p>
-                            </div>
-                        </form>
-                    </div>
-                    </div>
+                  <p>
+                    New user???
+                    <Link to="/register-user" target="_self">
+                      <small> Register</small>
+                    </Link>
+                  </p>
                 </div>
+              </form>
             </div>
-        );
-    }
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
- 
+
 export default LoginUser;
