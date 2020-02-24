@@ -216,7 +216,7 @@ class KPIForm extends Component {
                   </div>
                   <div className="">
                     <label
-                    //   htmlFor="comment"
+                      //   htmlFor="comment"
                       className="col-form-label m-0 p-0 bold-label"
                     >
                       Comment
@@ -224,7 +224,7 @@ class KPIForm extends Component {
                     </label>
                     <textarea
                       className="form-control"
-                    //   id="comment"
+                      //   id="comment"
                       name="comment"
                       value={comment}
                       onChange={this.handleChange}

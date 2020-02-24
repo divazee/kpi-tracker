@@ -13,8 +13,7 @@ class RegisterUser extends React.Component {
       firstname: "",
       lastname: "",
       email: "",
-      password: "",
-      feedback: ""
+      password: ""
     };
   }
 
@@ -71,7 +70,7 @@ class RegisterUser extends React.Component {
         </div>
         <div className="main">
           <div className="col-md-6 col-sm-12">
-            <div className="login-form">
+            <div className="register-form">
               {/* <form onSubmit={this.handleSubmit}> */}
               <form>
                 <div className="form-group">

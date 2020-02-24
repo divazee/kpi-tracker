@@ -240,7 +240,11 @@ class UpdateKPI extends Component {
                     className="col-form-label m-0 p-0 bold-label"
                   >
                     Comment
-                    <small className=""> (optional)</small>:
+                    <small className="">
+                      {" "}
+                      (include progress report and end date)
+                    </small>
+                    :
                   </label>
                   <textarea
                     className="form-control"

@@ -84,6 +84,12 @@ class MyTable extends Component {
     });
   }
 
+//   handleDate = e => {
+//     const { name, value } = e.target;
+//     this.setState({ [name]: value });
+//     //   console.log("reeobject", date)
+//   };
+
   renderTableData() {
     return this.state.kpis.map((kpi, i) => {
       const { task, start_date, supposed_end_date, end_date, status } = kpi;
@@ -119,9 +125,14 @@ class MyTable extends Component {
             </a>
             <DeleteKPI kpi={this.state.oneKPI} />
           </td>
-          <td>
-            <input type="date" name="end_date" defaultValue={end_date} />
-          </td>
+          {/* <td>
+            <input
+              type="date"
+              name="end_date"
+              value={end_date}
+              onChange={this.handleDate}
+            />
+          </td> */}
         </tr>
       );
     });
@@ -149,7 +160,7 @@ class MyTable extends Component {
               <th>Due Date</th>
               <th>Status</th>
               <th>Action</th>
-              <th>End Date</th>
+              {/* <th>End Date</th> */}
             </tr>
           </thead>
           <tbody>
